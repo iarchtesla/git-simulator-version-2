@@ -105,5 +105,4 @@ void GitSimulator::explainDS() const {
     std::cout << "1. Linked List (std::list): Stores all commits in order.\n";
     std::cout << "2. Stack (std::stack): Implements stash (LIFO).\n";
     std::cout << "3. Array (std::array): Stores last 3 commits for quick access.\n";
-    std::cout << "Note: Queue is not used in this version (removed bonus).\n";
 }
