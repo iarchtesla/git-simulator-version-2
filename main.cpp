@@ -13,9 +13,7 @@ void printMenu() {
     std::cout << "6. Stash (save last commit to stack)\n";
     std::cout << "7. Stash pop (restore from stack)\n";
     std::cout << "8. Show recent commits (via Array)\n";
-    std::cout << "9. [Bonus] Add delayed commit (Queue)\n";
-    std::cout << "10. [Bonus] Process delayed commit\n";
-    std::cout << "11. Explain data structures\n";
+    std::cout << "9. Explain data structures\n";
     std::cout << "0. Exit\n";
     std::cout << "Choice: ";
 }
@@ -62,14 +60,6 @@ int main() {
                 git.showRecentCommits();
                 break;
             case 9:
-                std::cout << "Delayed commit message: ";
-                std::getline(std::cin, input);
-                git.addDelayedCommit(input);
-                break;
-            case 10:
-                git.processDelayedCommit();
-                break;
-            case 11:
                 git.explainDS();
                 break;
             case 0:
