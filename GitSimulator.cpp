@@ -3,31 +3,25 @@
 #include <algorithm>
 
 GitSimulator::GitSimulator() : nextId(1) {
-  
     for (auto& c : recent) c = Commit(-1, "");
 }
 
 void GitSimulator::updateRecentArray() {
-   
     if (commits.empty()) return;
-    
     std::list<Commit>::reverse_iterator rit = commits.rbegin();
     for (size_t i = 0; i < RECENT_SIZE && rit != commits.rend(); ++i, ++rit) {
         recent[i] = *rit;
     }
-    
     for (size_t i = commits.size(); i < RECENT_SIZE; ++i) {
         recent[i] = Commit(-1, "");
     }
 }
-
 
 void GitSimulator::addCommit(const std::string& msg) {
     commits.push_back(Commit(nextId++, msg));
     updateRecentArray();
     std::cout << "Commit added successfully.\n";
 }
-
 
 void GitSimulator::showAllCommits() const {
     if (commits.empty()) {
@@ -39,7 +33,6 @@ void GitSimulator::showAllCommits() const {
         c.print();
     }
 }
-
 
 bool GitSimulator::searchCommit(const std::string& keyword) const {
     bool found = false;
@@ -53,7 +46,6 @@ bool GitSimulator::searchCommit(const std::string& keyword) const {
     return found;
 }
 
-
 bool GitSimulator::deleteLastCommit() {
     if (commits.empty()) {
         std::cout << "No commits to delete.\n";
@@ -65,7 +57,6 @@ bool GitSimulator::deleteLastCommit() {
     return true;
 }
 
-/
 bool GitSimulator::modifyLastCommit(const std::string& newMsg) {
     if (commits.empty()) {
         std::cout << "No commits to modify.\n";
@@ -86,7 +77,6 @@ void GitSimulator::stash() {
     std::cout << "Last commit saved to stash stack.\n";
 }
 
-
 void GitSimulator::stashPop() {
     if (stashStack.empty()) {
         std::cout << "Stash is empty.\n";
@@ -97,7 +87,6 @@ void GitSimulator::stashPop() {
     addCommit(stashed.message + " (restored from stash)");
     std::cout << "Stash restored and added as new commit.\n";
 }
-
 
 void GitSimulator::showRecentCommits() const {
     std::cout << "\n=== Last " << RECENT_SIZE << " commits (via Array) ===\n";
@@ -111,27 +100,10 @@ void GitSimulator::showRecentCommits() const {
     if (!any) std::cout << "No commits.\n";
 }
 
-
-void GitSimulator::addDelayedCommit(const std::string& msg) {
-    pendingQueue.push(Commit(-1, msg)); // id مؤقت
-    std::cout << "Delayed commit added to queue.\n";
-}
-
-void GitSimulator::processDelayedCommit() {
-    if (pendingQueue.empty()) {
-        std::cout << "No delayed commits.\n";
-        return;
-    }
-    Commit delayed = pendingQueue.front();
-    pendingQueue.pop();
-    addCommit(delayed.message);
-    std::cout << "Processed delayed commit from queue.\n";
-}
-
 void GitSimulator::explainDS() const {
     std::cout << "\n=== Data Structures Used ===\n";
     std::cout << "1. Linked List (std::list): Stores all commits in order.\n";
     std::cout << "2. Stack (std::stack): Implements stash (LIFO).\n";
-    std::cout << "3. Queue (std::queue): Holds delayed commits (FIFO).\n";
-    std::cout << "4. Array (std::array): Stores last 3 commits for quick access.\n";
+    std::cout << "3. Array (std::array): Stores last 3 commits for quick access.\n";
+    std::cout << "Note: Queue is not used in this version (removed bonus).\n";
 }
